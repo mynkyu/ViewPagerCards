@@ -3,6 +3,7 @@ package com.github.rubensousa.viewpagercards;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.CardView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,17 +14,9 @@ import java.util.List;
 public class CardPagerAdapter extends PagerAdapter implements CardAdapter {
 
     private ArrayList<View> mViews = new ArrayList<View>();
-//    private List<String> mData;
     private float mBaseElevation;
 
     public CardPagerAdapter() {
-//        mData = new ArrayList<>();
-//        mViews = new ArrayList<>();
-
-//        for (int i = 0; i < 5; i++) {
-//            mData.add("");
-//            mViews.add(null);
-//        }
     }
 
     public float getBaseElevation() {
@@ -47,19 +40,6 @@ public class CardPagerAdapter extends PagerAdapter implements CardAdapter {
 
     @Override
     public Object instantiateItem(ViewGroup container, int position) {
-//        View view = LayoutInflater.from(container.getContext())
-//                .inflate(R.layout.adapter, container, false);
-//        container.addView(view);
-//        CardView cardView = (CardView) view.findViewById(R.id.cardView);
-//
-//        if (mBaseElevation == 0) {
-//            mBaseElevation = cardView.getCardElevation();
-//        }
-//
-//        cardView.setMaxCardElevation(mBaseElevation * MAX_ELEVATION_FACTOR);
-//        mViews.set(position, cardView);
-//        return view;
-
         View v = mViews.get(position);
         container.addView(v);
         return v;
@@ -67,9 +47,6 @@ public class CardPagerAdapter extends PagerAdapter implements CardAdapter {
 
     @Override
     public void destroyItem(ViewGroup container, int position, Object object) {
-//        container.removeView((View) object);
-//        mViews.set(position, null);
-
         container.removeView(mViews.get(position));
     }
 

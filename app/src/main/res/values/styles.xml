@@ -12,4 +12,8 @@
         <item name="colorButtonNormal">@color/colorAccent</item>
     </style>
 
+    <style name="ButtonStyleDel" parent="Base.Widget.AppCompat.Button.Colored">
+        <item name="colorButtonNormal">@color/colorPrimary</item>
+    </style>
+
 </resources>
