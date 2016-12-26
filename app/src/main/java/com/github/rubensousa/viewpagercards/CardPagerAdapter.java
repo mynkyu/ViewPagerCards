@@ -1,6 +1,7 @@
 package com.github.rubensousa.viewpagercards;
 
 import android.support.v4.view.PagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.support.v7.widget.CardView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,19 +12,18 @@ import java.util.List;
 
 public class CardPagerAdapter extends PagerAdapter implements CardAdapter {
 
-    private List<CardView> mViews;
-    private List<String> mData;
+    private ArrayList<View> mViews = new ArrayList<View>();
+//    private List<String> mData;
     private float mBaseElevation;
 
     public CardPagerAdapter() {
+//        mData = new ArrayList<>();
+//        mViews = new ArrayList<>();
 
-        mData = new ArrayList<>();
-        mViews = new ArrayList<>();
-
-        for (int i = 0; i < 5; i++) {
-            mData.add("");
-            mViews.add(null);
-        }
+//        for (int i = 0; i < 5; i++) {
+//            mData.add("");
+//            mViews.add(null);
+//        }
     }
 
     public float getBaseElevation() {
@@ -32,12 +32,12 @@ public class CardPagerAdapter extends PagerAdapter implements CardAdapter {
 
     @Override
     public CardView getCardViewAt(int position) {
-        return mViews.get(position);
+        return (CardView) mViews.get(position);
     }
 
     @Override
     public int getCount() {
-        return mData.size();
+        return mViews.size();
     }
 
     @Override
@@ -47,24 +47,67 @@ public class CardPagerAdapter extends PagerAdapter implements CardAdapter {
 
     @Override
     public Object instantiateItem(ViewGroup container, int position) {
-        View view = LayoutInflater.from(container.getContext())
-                .inflate(R.layout.adapter, container, false);
-        container.addView(view);
-        CardView cardView = (CardView) view.findViewById(R.id.cardView);
+//        View view = LayoutInflater.from(container.getContext())
+//                .inflate(R.layout.adapter, container, false);
+//        container.addView(view);
+//        CardView cardView = (CardView) view.findViewById(R.id.cardView);
+//
+//        if (mBaseElevation == 0) {
+//            mBaseElevation = cardView.getCardElevation();
+//        }
+//
+//        cardView.setMaxCardElevation(mBaseElevation * MAX_ELEVATION_FACTOR);
+//        mViews.set(position, cardView);
+//        return view;
 
-        if (mBaseElevation == 0) {
-            mBaseElevation = cardView.getCardElevation();
-        }
-
-        cardView.setMaxCardElevation(mBaseElevation * MAX_ELEVATION_FACTOR);
-        mViews.set(position, cardView);
-        return view;
+        View v = mViews.get(position);
+        container.addView(v);
+        return v;
     }
 
     @Override
     public void destroyItem(ViewGroup container, int position, Object object) {
-        container.removeView((View) object);
-        mViews.set(position, null);
+//        container.removeView((View) object);
+//        mViews.set(position, null);
+
+        container.removeView(mViews.get(position));
     }
 
+    @Override
+    public int getItemPosition(Object object) {
+        int index = mViews.indexOf(object);
+        if (index == -1)
+            return POSITION_NONE;
+        else
+            return index;
+    }
+
+    public int addView(View v)
+    {
+        return addView(v, mViews.size());
+    }
+
+    public int addView(View v, int position)
+    {
+        mViews.add(position, v);
+        return position;
+    }
+
+    public int removeView(ViewPager pager, View v)
+    {
+        return removeView(pager, mViews.indexOf(v));
+    }
+
+    public int removeView(ViewPager pager, int position)
+    {
+        pager.setAdapter(null);
+        mViews.remove(position);
+        pager.setAdapter(this);
+
+        return position;
+    }
+
+    public View getView(int position) {
+        return mViews.get(position);
+    }
 }
